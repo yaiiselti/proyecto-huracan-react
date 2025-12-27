@@ -1,0 +1,132 @@
+/* =========================================
+   FOOTER ELITE - ESTRUCTURA CUADRADA
+   ========================================= */
+
+.footer-elite {
+  background-color: var(--negro-elite);
+  color: var(--blanco-puro);
+  padding: 80px 0 30px 0; /* Más aire arriba para elegancia */
+  margin-top: 100px;
+  border-top: 4px solid var(--azul-club); /* Detalle de marca en el tope */
+}
+
+/* Grid principal para escritorio */
+.footer-main-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr; /* La marca ocupa más espacio */
+  gap: 60px;
+  align-items: start;
+}
+
+.footer-logo {
+  font-size: 2rem;
+  font-weight: 900;
+  margin-bottom: 20px;
+  letter-spacing: -1.5px;
+}
+
+.footer-tagline {
+  color: var(--texto-muted);
+  max-width: 300px;
+  line-height: 1.6;
+}
+
+.footer-heading {
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--amarillo-club);
+  margin-bottom: 25px;
+  text-transform: uppercase;
+}
+
+/* Grupo de Iconos Sociales */
+.social-icon-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.social-icon-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--blanco-puro);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.social-icon-link svg {
+  color: var(--amarillo-club);
+  transition: 0.2s;
+}
+
+.social-icon-link:hover {
+  color: var(--amarillo-club);
+  transform: translateX(5px); /* Desplazamiento sutil al hover */
+}
+
+.footer-section p {
+  color: var(--texto-muted);
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+}
+
+/* Créditos finales bien alineados */
+.footer-credits {
+  margin-top: 60px;
+  padding-top: 25px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.credits-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.admin-silent-link {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s;
+}
+
+.admin-silent-link:hover {
+  color: var(--blanco-puro);
+}
+
+/* =========================================
+   ADAPTACIÓN PARA MÓVIL (CUADRADO TOTAL)
+   ========================================= */
+
+@media (max-width: 768px) {
+  .footer-elite {
+    padding: 60px 0 40px 0;
+  }
+
+  .footer-main-grid {
+    grid-template-columns: 1fr; /* Una columna única */
+    text-align: center; /* Centrado perfecto en móvil */
+    gap: 50px;
+  }
+
+  .footer-tagline {
+    margin: 0 auto; /* Centra el párrafo */
+  }
+
+  .social-icon-group {
+    align-items: center; /* Centra los iconos sociales */
+  }
+
+  .credits-content {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+}

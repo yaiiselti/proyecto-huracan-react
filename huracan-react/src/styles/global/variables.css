@@ -1,0 +1,17 @@
+:root {
+  --azul-club: #003366;
+  --amarillo-club: #ffdb3d;
+  --negro-elite: #1a1a1a;
+  --blanco-puro: #ffffff;
+  --gris-borde: #eeeeee;
+  --gris-detalle: #f0f0f0;
+  --texto-suave: #555555;
+  --texto-muted: #888888;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--blanco-puro);
+  color: var(--negro-elite);
+}
