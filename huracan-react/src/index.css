@@ -1,6 +1,7 @@
 
 /* 1. Base y Variables */
 @import './styles/global/variables.css';
+@import './styles/global/reset.css'; /* AÑADE ESTA LÍNEA AQUÍ */
 @import './styles/global/utilities.css';
 
 /* 2. Componentes */

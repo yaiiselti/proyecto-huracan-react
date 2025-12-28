@@ -1,0 +1,21 @@
+/* RESET TOTAL - Evita que el logo se corte */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Fundamental para que el padding no descuadre el ancho */
+}
+
+html, body {
+  width: 100%;
+  overflow-x: hidden; /* Prohibido el movimiento lateral */
+  background-color: var(--blanco-puro);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Bloqueo total de scroll cuando el menú está abierto */
+body.lock-scroll {
+  overflow: hidden !important;
+  height: 100vh;
+  position: fixed;
+  width: 100%;
+}

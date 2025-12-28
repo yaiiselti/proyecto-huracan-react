@@ -1,18 +1,75 @@
 /* =========================================
    ESTILOS DE LA VISTA HOME
    ========================================= */
+   
+.btn-reserva-home {
+  background-color: var(--amarillo-club);
+  color: var(--azul-club) !important;
+  padding: 16px 40px;
+  border-radius: 50px; /* Más redondeado (estilo cápsula) */
+  font-weight: 800;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  border: 2px solid transparent;
+}
+
+.btn-reserva-home:hover {
+  transform: translateY(-5px) scale(1.05); /* Efecto de elevación y zoom */
+  box-shadow: 0 15px 30px rgba(255, 219, 61, 0.3); /* Brillo del color del club */
+  background-color: #ffffff; /* Cambio sutil a blanco para resaltar */
+  border-color: var(--amarillo-club);
+}
+
+.btn-reserva-home:active {
+  transform: translateY(-2px) scale(0.98); /* Efecto de pulsación */
+}
 
 .home-hero {
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
-              url('https://images.unsplash.com/photo-1529900748604-07564a03e7a6?q=80&w=2070&auto=format&fit=crop');
-  background-size: cover;
-  background-position: center;
+  position: relative; /* Cambiado: Necesario para el carrusel */
   height: 70vh;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--blanco-puro);
   text-align: center;
+  overflow: hidden; /* Evita que las imágenes se salgan */
+  background-color: var(--negro-elite);
+}
+
+/* Nuevos estilos para las capas del carrusel */
+.hero-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.4s ease-in-out; /* Transición suave de 1.5 seg */
+  z-index: 1;
+}
+
+.hero-slide.active {
+  opacity: 1;
+}
+
+/* Overlay para legibilidad del texto */
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
+  z-index: 2;
+}
+
+.home-hero-content {
+  position: relative;
+  z-index: 3; /* Asegura que el texto esté siempre al frente */
 }
 
 .home-hero-title {
@@ -31,43 +88,25 @@
   display: flex;
   gap: 30px;
   justify-content: center;
-  flex-wrap: wrap; /* Para que sea responsivo en celulares */
+  flex-wrap: wrap;
 }
 
 .cuadrado-elite {
   background: var(--blanco-puro);
-  padding: 40px 30px;
-  flex: 1;
-  min-width: 280px;
-  border-radius: 12px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
-  position: relative;
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-/* Línea decorativa superior al pasar el mouse */
-.cuadrado-elite::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  background: var(--azul-club);
-  transform: scaleX(0);
-  transition: transform 0.4s ease;
+  width: 350px;
+  padding: 50px 30px;
+  border-radius: 24px;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.04);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid rgba(0,0,0,0.02);
+  cursor: default;
 }
 
 .cuadrado-elite:hover {
-  transform: translateY(-12px);
-  box-shadow: 0 30px 60px rgba(0, 51, 102, 0.15);
-  border-color: var(--azul-club);
-}
-
-.cuadrado-elite:hover::before {
-  transform: scaleX(1);
+  transform: translateY(-15px);
+  box-shadow: 0 25px 50px rgba(0, 51, 102, 0.08);
+  border-color: rgba(0, 51, 102, 0.1);
 }
 
 .cuadrado-icono {
@@ -96,12 +135,12 @@
 /* --- HERO RESPONSIVO --- */
 @media (max-width: 768px) {
   .home-hero {
-    height: 60vh; /* Un poco más bajo en móvil */
+    height: 60vh;
     padding: 0 20px;
   }
 
   .home-hero-title {
-    font-size: 2.2rem; /* Tamaño fijo cómodo para celular */
+    font-size: 2.2rem;
     margin-bottom: 15px;
   }
 
@@ -113,29 +152,10 @@
 
 /* --- CUADRADOS ELITE RESPONSIVOS --- */
 @media (max-width: 768px) {
-  .seccion-cuadrados-huracan {
-    padding: 60px 0; /* Menos relleno para no scrollear infinito */
-  }
-
   .fila-cuadrados-elite {
-    flex-direction: column; /* Apilar uno sobre otro */
-    gap: 20px;
-    padding: 0 15px;
+    padding: 0 20px;
   }
-
   .cuadrado-elite {
-    padding: 30px 20px;
-    text-align: center; /* Centrado se ve mejor en pantallas angostas */
-  }
-
-  /* El efecto hover es menos importante en móvil (no hay mouse), 
-     así que reducimos el desplazamiento para que no se sienta raro al tocar */
-  .cuadrado-elite:hover {
-    transform: translateY(-5px); 
-  }
-
-  .cuadrado-icono {
-    font-size: 2.5rem;
-    margin-bottom: 15px;
+    width: 100%;
   }
 }
