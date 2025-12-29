@@ -5,6 +5,7 @@ import './index.css';
 import Header from './components/Header';
 import Footer from './components/Footer'; // Importamos el footer
 import Home from './views/Home';
+import Reserva from './views/Reserva';  
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Routes>
            {/* Rutas Públicas */}
             <Route path="/" element={<Home />} />
+            <Route path="/reserva" element={<Reserva />} />
             
             {/* Rutas Administrativas */}
             <Route path="/admin/login" element={<div>Página de Login Admin</div>} />

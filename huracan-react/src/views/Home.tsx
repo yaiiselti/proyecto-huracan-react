@@ -41,7 +41,7 @@ function Home() {
             <span className="text-blue">DEPORTIVO</span> <span className="text-yellow">HURACAN</span>
           </h1>
           <p className="lead mb-4">CALIDAD PROFECIONAL.</p>
-          <Link to="/reservar" className="btn-huracan btn-reserva-home">
+          <Link to="/Reserva" className="btn-huracan btn-reserva-home">
             RESERVAR AHORA
           </Link>
         </div>
