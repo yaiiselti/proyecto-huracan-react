@@ -11,3 +11,5 @@
 /* 3. Vistas */
 @import './styles/views/home.css';
 @import './styles/views/Reserva.css';
+@import './styles/views/Club.css';
+@import './styles/views/Login.css';

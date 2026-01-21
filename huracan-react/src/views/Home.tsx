@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 // Importación manual de 6 imágenes específicas
 import img1 from '../assets/img/cancha1.jpeg';
-import img2 from '../assets/img/cancha2.jpeg';
-import img3 from '../assets/img/cancha1.jpeg';
-import img4 from '../assets/img/cancha2.jpeg';
+import img2 from '../assets/img/cancha-pasto-noche-1.jpeg';
+import img3 from '../assets/img/cancha-huracan-cracks.jpeg';
+import img4 from '../assets/img/cancha-huracan-cracks-2.jpeg';
 import img5 from '../assets/img/cancha1.jpeg';
 import img6 from '../assets/img/cancha2.jpeg';
 

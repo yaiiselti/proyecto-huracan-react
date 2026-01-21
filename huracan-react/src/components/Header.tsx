@@ -57,7 +57,7 @@ function Header() {
             <Link to="/Reserva" className={`nav-link ${getActiveClass('/Reserva')}`} onClick={() => setIsMenuOpen(false)}>
               Arrendar
             </Link>
-            <Link to="/nosotros" className={`nav-link ${getActiveClass('/nosotros')}`} onClick={() => setIsMenuOpen(false)}>
+            <Link to="/Club" className={`nav-link ${getActiveClass('/Club')}`} onClick={() => setIsMenuOpen(false)}>
               Club
             </Link>
           </div>

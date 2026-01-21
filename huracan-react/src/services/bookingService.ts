@@ -7,13 +7,29 @@ export interface Booking {
   telefono: string;
   fecha: string;
   hora: string;
-  status: 'pendiente';
+  status: 'pendiente' | 'completada'; // Actualizamos el tipo}
 }
 
 export const BookingService = {
   getBookings: (): Booking[] => {
     const data = localStorage.getItem('huracan_bookings');
     return data ? JSON.parse(data) : [];
+  },
+
+  // FUNCIÓN QUIRÚRGICA: Eliminar reserva
+  deleteBooking: (id: string): void => {
+    const bookings = BookingService.getBookings();
+    const filtered = bookings.filter(b => b.id !== id);
+    localStorage.setItem('huracan_bookings', JSON.stringify(filtered));
+  },
+
+  // FUNCIÓN QUIRÚRGICA: Marcar como completada
+  completeBooking: (id: string): void => {
+    const bookings = BookingService.getBookings();
+    const updated = bookings.map(b => 
+      b.id === id ? { ...b, status: 'completada' as const } : b
+    );
+    localStorage.setItem('huracan_bookings', JSON.stringify(updated));
   },
 
   // Acepta los datos sin ID y lo genera internamente para evitar errores de tipo

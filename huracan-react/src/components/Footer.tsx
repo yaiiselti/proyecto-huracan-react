@@ -42,7 +42,7 @@ function Footer() {
         <div className="footer-credits">
           <div className="credits-content">
             <span>© DERECHOS RESERVADOS. 2025 CLUB DEPORTIVO HURACÁN</span>
-            <Link to="/admin/login" className="admin-silent-link">Acceso Administrador</Link>
+            <Link to="/Login" className="admin-silent-link">Acceso Administrador</Link>
           </div>
         </div>
       </div>

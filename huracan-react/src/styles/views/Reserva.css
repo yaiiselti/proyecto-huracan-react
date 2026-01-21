@@ -8,7 +8,7 @@
     padding-bottom: 80px;
 }
 
-/* TOAST NOTIFICATION (Tu base intacta) */
+/* TOAST NOTIFICATION (Recuperada) */
 .huracan-toast {
     position: fixed;
     top: 90px;
@@ -41,7 +41,7 @@
     }
 }
 
-/* HERO */
+/* HERO (Recuperada) */
 .reserva-hero {
     background: linear-gradient(rgba(0, 31, 63, 0.85), rgba(0, 31, 63, 0.85)), url('../../assets/img/hero1.jpg');
     background-size: cover;
@@ -55,7 +55,70 @@
     font-weight: 900;
 }
 
-/* CALENDARIO (Compacto) */
+/* STEPS (Recuperada) */
+.reserva-steps {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: -25px 0 40px;
+}
+
+.step {
+    background: white;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 0.8rem;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    color: #a0aec0;
+}
+
+.step.active {
+    color: var(--azul-club);
+    border: 2.5px solid var(--amarillo-club);
+}
+
+/* PASO 1: TITULO Y BOTON CENTRADO */
+.section-title-elite {
+    text-align: center;
+    font-weight: 900;
+    font-size: 1.6rem;
+    color: var(--azul-club);
+    margin-bottom: 30px;
+}
+
+.btn-center-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.btn-huracan-elite {
+    background-color: var(--azul-club);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    /* Regla de Cápsula */
+    padding: 18px 60px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 20px rgba(0, 51, 102, 0.2);
+}
+
+.btn-huracan-elite:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(0, 51, 102, 0.3);
+}
+
+.btn-huracan-elite:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #cbd5e1;
+    box-shadow: none;
+}
+
+/* CALENDARIO (Recuperado) */
 .calendar-container {
     max-width: 450px;
     margin: 0 auto;
@@ -107,10 +170,6 @@
     transition: 0.2s;
 }
 
-.day-cell:hover:not(.disabled):not(.selected) {
-    background: rgba(0, 51, 102, 0.05);
-}
-
 .day-cell.selected {
     background: var(--azul-club);
     color: white;
@@ -124,30 +183,7 @@
     background: #f8fafc;
 }
 
-/* STEPS (Tu diseño intacto) */
-.reserva-steps {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin: -25px 0 40px;
-}
-
-.step {
-    background: white;
-    padding: 12px 24px;
-    border-radius: 50px;
-    font-weight: 800;
-    font-size: 0.8rem;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-    color: #a0aec0;
-}
-
-.step.active {
-    color: var(--azul-club);
-    border: 2.5px solid var(--amarillo-club);
-}
-
-/* HORAS (Bordes cápsula) */
+/* HORAS GRID (Recuperada) */
 .horas-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
@@ -172,13 +208,69 @@
     transform: scale(1.05);
 }
 
-/* ERRORES FORMULARIO */
-.input-group-elite {
+/* PASO 2: FORMULARIO SERIO Y PROFESIONAL */
+.formulario-wrapper {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     width: 100%;
 }
 
+.formulario-card-elite {
+    background: white;
+    padding: 45px;
+    border-radius: 40px;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.03);
+    max-width: 680px;
+    /* Tamaño profesional, no estirado */
+    width: 100%;
+    border: 1px solid #f1f5f9;
+}
+
+.section-title-form {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--azul-club);
+    margin-bottom: 5px;
+}
+
+.section-subtitle-form {
+    color: #64748b;
+    font-weight: 600;
+    margin-bottom: 35px;
+    font-size: 0.95rem;
+}
+
+/* AVISO DE PAGO PROFESIONAL */
+.payment-box-elite {
+    background: #f0f9ff;
+    border: 2px dashed #bae6fd;
+    border-radius: 25px;
+    padding: 25px;
+    transition: 0.3s;
+}
+
+.payment-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #0369a1;
+    margin-bottom: 10px;
+}
+
+.payment-header h4 {
+    font-weight: 800;
+    margin: 0;
+}
+
+.payment-box-elite p {
+    font-size: 0.9rem;
+    color: #0c4a6e;
+    margin: 0;
+    line-height: 1.5;
+    font-weight: 500;
+}
+
+/* INPUTS ELITE */
 .input-elite {
     width: 100%;
     padding: 18px 25px;
@@ -201,28 +293,85 @@
     margin-top: 5px;
 }
 
-/* BOTONES CÁPSULA ELITE */
+/* RESUMEN ELITE Y BOTONES INVERSOS */
+.resumen-card-elite {
+    background: white;
+    padding: 40px;
+    border-radius: 45px;
+    border: 2.5px solid rgba(255, 209, 0, 0.4);
+    position: sticky;
+    top: 100px;
+}
+.resumen-rock-container {
+    /* En escritorio se mantiene sticky (pegajoso) */
+    position: sticky;
+    top: 100px;
+}
+
+.total-box-elite {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 2px solid #f1f5f9;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--azul-club);
+}
+
+.resumen-actions-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 25px;
+}
+
 .btn-confirmar-elite {
-    background-color: var(--azul-club);
+    background: var(--azul-club);
     color: white;
     border: none;
-    border-radius: 50px !important;
-    padding: 18px !important;
+    border-radius: 50px;
+    padding: 18px;
     font-weight: 900;
     cursor: pointer;
     transition: 0.3s;
-    margin-bottom: 12px !important;
-    /* Separación crítica */
 }
 
-/* FIX ROCA MÓVIL (Inamovible) */
+.btn-ghost-elite {
+    background: transparent;
+    color: var(--azul-club);
+    border: 2.5px solid var(--azul-club);
+    /* Estilo inverso */
+    border-radius: 50px;
+    padding: 16px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-ghost-elite:hover {
+    background: var(--azul-club);
+    color: white;
+}
+
+/* FIX ROCA MÓVIL (Comodidad táctil total) */
 @media (max-width: 992px) {
-    .grid-reserva-datos {
-        grid-template-columns: 1fr;
+    .grid-reserva-datos { 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .resumen-rock-container {
+        width: 100%;
+        max-width: 680px; /* Misma dimensión que el formulario */
+        position: static; /* Ya no flota sobre el menú */
+        z-index: 1;
     }
 
     .reserva-main {
-        padding-bottom: 220px;
+        padding-bottom: 240px;
     }
 
     .resumen-rock-fixed {
@@ -232,28 +381,35 @@
         width: 100%;
         z-index: 5000;
         background: white;
-        padding: 20px 25px;
-        box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.15);
-        border-radius: 35px 35px 0 0;
+        padding: 20px 25px 35px;
+        box-shadow: 0 -15px 40px rgba(0, 0, 0, 0.12);
+        border-radius: 40px 40px 0 0;
     }
 
-    .resumen-card {
-        border: none;
-        padding: 0;
-        box-shadow: none;
-        position: relative;
+    .resumen-card-elite {
+        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.03);
+        border: 1px solid #f1f5f9; /* Borde más sutil en móvil */
     }
 
-    .resumen-card h4,
-    .resumen-card p {
+    .resumen-card-elite .resumen-title,
+    .resumen-card-elite .resumen-body {
         display: none;
     }
 
-    .resumen-card .total-box {
-        margin-top: 0;
-        margin-bottom: 10px;
-        border: none;
-        padding: 0;
+    .resumen-title, .resumen-body { 
+        display: block !important; 
+    }
+
+    .resumen-actions-group {
+        flex-direction: column; /* Botones uno sobre otro como en desktop */
+        gap: 12px;
+    }
+
+    .btn-confirmar-elite,
+    .btn-ghost-elite {
+        flex: 1;
+        padding: 15px !important;
+        font-size: 0.75rem;
     }
 }
 
@@ -263,17 +419,9 @@
         grid-template-columns: 1fr 380px;
         gap: 40px;
     }
-
-    .resumen-card {
-        position: sticky;
-        top: 120px;
-        background: white;
-        padding: 40px;
-        border-radius: 45px;
-        border: 2.5px solid rgba(255, 209, 0, 0.4);
-    }
 }
 
+/* SUCCESS (Recuperada) */
 .success-box {
     text-align: center;
     padding: 80px 0;
@@ -292,3 +440,86 @@
     font-size: 2.5rem;
     margin: 0 auto 20px;
 }
+
+
+
+
+
+/* CONTENEDOR DE TELÉFONO ELITE */
+.phone-container-elite {
+    display: flex;
+    align-items: center;
+    background: white;
+    border: 2px solid #edf2f7;
+    border-radius: 50px; /* Estética Cápsula */
+    padding: 0 20px;
+    height: 60px;
+    transition: 0.3s;
+}
+
+.phone-container-elite.error {
+    border-color: #ef4444;
+    background: #fff5f5;
+}
+
+/* SELECTOR QUIRÚRGICO */
+.paises-selector {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-right: 12px;
+    border-right: 1.5px solid #edf2f7;
+    cursor: pointer;
+}
+
+.bandera-actual {
+    font-size: 1.6rem; /* Tamaño para que destaque */
+    line-height: 1;
+}
+
+.select-invisible {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0; /* Hacemos el select nativo invisible pero clickeable */
+    cursor: pointer;
+    appearance: none;
+}
+
+
+.input-phone-field {
+    border: none;
+    background: transparent;
+    width: 100%;
+    font-weight: 700;
+    font-size: 1rem;
+    outline: none;
+    color: #1a202c;
+}
+
+
+
+/* VISUALIZADOR ESTÁTICO CHILE */
+.paises-display-static {
+    display: flex;
+    align-items: center;
+    padding-right: 15px;
+    border-right: 2px solid #edf2f7;
+    user-select: none;
+}
+
+.bandera-estatica {
+    font-size: 1.6rem;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); /* Le da un toque "Elite" */
+}
+
+.prefijo-texto {
+    padding: 0 15px;
+    font-weight: 800;
+    color: var(--azul-club);
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+}
+

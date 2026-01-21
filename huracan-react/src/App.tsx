@@ -3,10 +3,15 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './index.css'; 
 
 import Header from './components/Header';
-import Footer from './components/Footer'; // Importamos el footer
+import Footer from './components/Footer'; 
 import Home from './views/Home';
-import Reserva from './views/Reserva';  
+import Reserva from './views/Reserva'; 
+import Club from './views/Club'; 
+import Login from './views/Login';
 
+// --- NUEVOS COMPONENTES DE SEGURIDAD ---
+import { RutaProtegida } from './components/RutaProtegida';
+import AdminDashboard from './views/admin/AdminDashboard';
 function App() {
   return (
     <Router>
@@ -14,12 +19,27 @@ function App() {
         <Header />
         <main className="main-content">
           <Routes>
-           {/* Rutas Públicas */}
+            {/* Rutas Públicas */}
             <Route path="/" element={<Home />} />
             <Route path="/reserva" element={<Reserva />} />
+            <Route path="/club" element={<Club />} />
             
-            {/* Rutas Administrativas */}
-            <Route path="/admin/login" element={<div>Página de Login Admin</div>} />
+            {/* Puerta de Acceso Admin con PIN Dinámico */}
+            <Route path="/login" element={<Login />} />
+            
+            {/* Rutas Administrativas Protegidas */}
+            <Route 
+              path="/admin/dashboard" 
+              element={
+                <RutaProtegida>
+
+                  <AdminDashboard />
+                </RutaProtegida>
+              } 
+            />
+
+            {/* Redirección opcional para el login admin anterior */}
+            <Route path="/admin/login" element={<Login />} />
           </Routes>
         </main>
         <Footer />
