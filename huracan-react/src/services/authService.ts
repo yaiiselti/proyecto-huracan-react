@@ -1,55 +1,80 @@
 // src/services/authService.ts
 
 export interface AdminUser {
+  id: string;
   user: string;
-  role: 'ADMIN_MASTER';
-  token: string;
+  role: 'ADMIN_MASTER' | 'STAFF';
+  email: string;
+  password?: string; // Opcional para las pruebas
 }
 
-const ADMIN_STORAGE_KEY = 'huracan_admin_session';
+const ADMIN_LIST_KEY = 'huracan_admins';
+const SESSION_KEY = 'huracan_admin_session';
 
-/**
- * SERVICIO DE AUTENTICACIÓN (Mudo)
- * Encargado de la persistencia y validación técnica de la sesión.
- */
 export const AuthService = {
-  
-  // CREDENCIALES DE PRUEBA (Hardcoded para desarrollo)
-  verifyCredentials: (user: string, pass: string): boolean => {
-    // Usuario único definido para las pruebas de acceso
-    const TEST_USER = "admin_huracan@gmail.cl";
-    const TEST_PASS = "elite_2026";
+  // 1. Obtener la lista completa de admins
+  getAllAdmins: (): AdminUser[] => {
+    const data = localStorage.getItem(ADMIN_LIST_KEY);
+    // Si no hay datos, devolvemos el admin maestro por defecto
+    return data ? JSON.parse(data) : [
+      { id: 'master-01', user: 'admin', email: 'admin@huracan.cl', role: 'ADMIN_MASTER' }
+    ];
+  },
+
+  // 2. VERIFICACIÓN CORREGIDA: Busca en la lista y el hardcoded
+  verifyCredentials: (username: string, pass: string): AdminUser | null => {
+    // Caso especial: Admin Maestro inicial
+    if (username === 'admin' && pass === 'elite2026') {
+      return { id: 'master-01', user: 'admin', email: 'admin@huracan.cl', role: 'ADMIN_MASTER' };
+    }
+
+    // Buscar en la lista de administradores creados
+    const admins = AuthService.getAllAdmins();
+    const found = admins.find(a => a.user === username);
     
-    return user === TEST_USER && pass === TEST_PASS;
+    // NOTA: Como aún no gestionamos contraseñas individuales, 
+    // permitimos entrar a los nuevos con la contraseña maestra por ahora
+    if (found && pass === 'elite2026') {
+      return found;
+    }
+
+    return null;
   },
 
-  // PIN DE SEGURIDAD (Segundo Factor Único)
-  verifyPIN: (pin: string): boolean => {
-    const TEST_PIN = "1910"; // Año de ejemplo/fundación
-    return pin === TEST_PIN;
-  },
+  verifyPIN: (pin: string) => pin === '1910',
 
-  // Gestión de Sesión (Persistence)
-  saveSession: (username: string) => {
-    const sessionData: AdminUser = {
-      user: username,
-      role: 'ADMIN_MASTER',
-      token: crypto.randomUUID() // Cumplimos la regla de generación automática de IDs
+  // 3. PERSISTENCIA COMPLETA: Guardamos el objeto de usuario entero
+  saveSession: (adminData: AdminUser) => {
+    const sessionInfo = {
+      ...adminData,
+      token: crypto.randomUUID(), // Generación de ID única para la sesión
+      loginTime: new Date().toISOString()
     };
-    localStorage.setItem(ADMIN_STORAGE_KEY, JSON.stringify(sessionData));
+    localStorage.setItem(SESSION_KEY, JSON.stringify(sessionInfo));
   },
 
-  isLoggedIn: (): boolean => {
-    return localStorage.getItem(ADMIN_STORAGE_KEY) !== null;
-  },
+  isLoggedIn: () => localStorage.getItem(SESSION_KEY) !== null,
 
   getSession: (): AdminUser | null => {
-    const data = localStorage.getItem(ADMIN_STORAGE_KEY);
+    const data = localStorage.getItem(SESSION_KEY);
     return data ? JSON.parse(data) : null;
   },
 
   logout: () => {
-    localStorage.removeItem(ADMIN_STORAGE_KEY);
+    localStorage.removeItem(SESSION_KEY);
     window.location.href = '/login';
+  },
+
+  // Gestión de equipo
+  addAdmin: (admin: Omit<AdminUser, 'id'>) => {
+    const admins = AuthService.getAllAdmins();
+    const newAdmin = { ...admin, id: crypto.randomUUID() };
+    admins.push(newAdmin);
+    localStorage.setItem(ADMIN_LIST_KEY, JSON.stringify(admins));
+  },
+
+  deleteAdmin: (id: string) => {
+    const admins = AuthService.getAllAdmins().filter(a => a.id !== id);
+    localStorage.setItem(ADMIN_LIST_KEY, JSON.stringify(admins));
   }
 };

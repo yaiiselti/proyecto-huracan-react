@@ -61,5 +61,34 @@ export const BookingService = {
     return (bookingDateTime.getTime() - now.getTime()) / (1000 * 60 * 60) >= 5;
   },
 
-  validateEmail: (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+  validateEmail: (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),
+
+  // Bloquear un horario específico
+  blockSlot: (fecha: string, hora: string, motivo: string, duracion: 'semana' | 'quincena' | 'indefinido') => {
+    const blocks = JSON.parse(localStorage.getItem('huracan_blocks') || '[]');
+    blocks.push({ id: crypto.randomUUID(), fecha, hora, motivo, duracion });
+    localStorage.setItem('huracan_blocks', JSON.stringify(blocks));
+  },
+
+  // Obtener todos los bloqueos manuales
+  getBlockedSlots: (): { fecha: string; hora: string; motivo: string }[] => {
+    const data = localStorage.getItem('huracan_blocks');
+    return data ? JSON.parse(data) : [];
+  },
+
+  // Alternar bloqueo (Bloquear/Desbloquear)
+  toggleBlockSlot: (fecha: string, hora: string, motivo: string = "Mantenimiento") => {
+    const blocks = BookingService.getBlockedSlots();
+    const index = blocks.findIndex(b => b.fecha === fecha && b.hora === hora);
+
+    if (index > -1) {
+      blocks.splice(index, 1); // Desbloquear
+    } else {
+      blocks.push({ fecha, hora, motivo }); // Bloquear
+    }
+    localStorage.setItem('huracan_blocks', JSON.stringify(blocks));
+  }
+
+  
 };
+

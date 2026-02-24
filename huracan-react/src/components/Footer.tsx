@@ -1,6 +1,20 @@
 import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 function Footer() {
+  const location = useLocation();
+
+  // Escondemos el footer en el panel de control y login
+  if (location.pathname.startsWith('/admin') || location.pathname === '/login') {
+    return null;
+  }
+
+  return (
+    <footer className="footer-elite">
+      {/* Tu código actual del Footer aquí... */}
+    </footer>
+  );
+
   return (
     <footer className="footer-elite">
       <div className="container">

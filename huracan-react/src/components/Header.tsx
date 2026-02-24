@@ -1,9 +1,23 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+
 import logoHuracan from '../assets/img/logo_huracan.png';
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+
+  // Si la ruta empieza con /admin o es el /login, no renderizamos nada
+  if (location.pathname.startsWith('/admin') || location.pathname === '/login') {
+    return null;
+  }
+
+  return (
+    <header className="header-elite">
+      {/* Tu código actual del Header aquí... */}
+    </header>
+  );
+
+  
 
   // Control de scroll natural: Bloquea el fondo solo en móvil
   useEffect(() => {
@@ -24,7 +38,7 @@ function Header() {
     };
   }, [isMenuOpen]);
 
-  const getActiveClass = (path: string) => 
+  const getActiveClass = (path: string) =>
     location.pathname === path ? "header-link-active" : "";
 
   return (
@@ -34,12 +48,12 @@ function Header() {
       <div className="header-container">
         {/* LOGO - Z-index bajo para quedar tras el menú */}
         <Link to="/" className="header-logo" onClick={() => setIsMenuOpen(false)}>
-  <img src={logoHuracan} alt="Huracán Logo" className="header-logo-img" />
-  <span className="logo-text">HURACÁN<span className="text-blue">.</span></span>
-</Link>
-        
+          <img src={logoHuracan} alt="Huracán Logo" className="header-logo-img" />
+          <span className="logo-text">HURACÁN<span className="text-blue">.</span></span>
+        </Link>
+
         {/* BOTÓN HAMBURGUESA - Z-index alto para estar siempre arriba */}
-        <button 
+        <button
           className={`menu-toggle ${isMenuOpen ? 'active' : ''}`}
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >

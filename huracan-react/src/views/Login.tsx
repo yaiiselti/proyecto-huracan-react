@@ -1,16 +1,20 @@
 import { useState, useEffect } from 'react';
 import { useNotification } from '../context/NotificationContext';
-import { AuthService } from '../services/authService'; // Importación vital
+import { AuthService } from '../services/authService'; 
+import type { AdminUser } from '../services/authService';// Importamos el tipo AdminUser
 import '../styles/views/Login.css';
 
 const Login = () => {
   const { showNotification } = useNotification();
   const [loginStep, setLoginStep] = useState(1);
   const [credentials, setCredentials] = useState({ user: '', pass: '' });
+  
+  // NUEVO: Estado para guardar temporalmente los datos del admin antes del PIN
+  const [tempAdmin, setTempAdmin] = useState<AdminUser | null>(null);
+  
   const [pin, setPin] = useState('');
   const [keypad, setKeypad] = useState<number[]>([]);
 
-  // Generar teclado aleatorio cada vez que entramos al paso 2
   useEffect(() => {
     if (loginStep === 2) {
       const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].sort(() => Math.random() - 0.5);
@@ -20,8 +24,12 @@ const Login = () => {
 
   const handleNextStep = (e: React.FormEvent) => {
     e.preventDefault();
-    // CAMBIO QUIRÚRGICO: Ahora consultamos al AuthService
-    if (AuthService.verifyCredentials(credentials.user, credentials.pass)) {
+    
+    // CAMBIO CLAVE: Obtenemos el objeto completo del usuario
+    const adminFound = AuthService.verifyCredentials(credentials.user, credentials.pass);
+    
+    if (adminFound) {
+      setTempAdmin(adminFound); // Guardamos el perfil encontrado
       setLoginStep(2);
       showNotification("Identidad verificada. Ingrese su PIN dinámico.");
     } else {
@@ -29,17 +37,12 @@ const Login = () => {
     }
   };
 
-  const handlePinClick = (num: number) => {
-    if (pin.length < 4) setPin(prev => prev + num);
-  };
-
   const handleAccess = () => {
-    // CAMBIO QUIRÚRGICO: Verificamos el PIN y guardamos la sesión
-    if (AuthService.verifyPIN(pin)) {
-      AuthService.saveSession(credentials.user); // Crea el token UUID
+    // CAMBIO CLAVE: Verificamos el PIN y guardamos EL OBJETO, no solo el nombre
+    if (AuthService.verifyPIN(pin) && tempAdmin) {
+      AuthService.saveSession(tempAdmin); // Guardamos perfil completo: Nombre, Email y Rol
       showNotification("Acceso concedido. Cargando panel...");
       
-      // Redirección al Dashboard Protegido
       setTimeout(() => {
         window.location.href = '/admin/dashboard';
       }, 1000);
@@ -51,13 +54,13 @@ const Login = () => {
 
   return (
     <div className="login-wrapper fade-in">
+      {/* ... El resto del HTML se mantiene igual ... */}
       <div className="login-container">
         <div className="login-card-elite">
           <div className="login-header">
-             {/* Asegúrate de que la ruta del logo sea correcta */}
             <img src="/logo_huracan.png" alt="Logo Huracán" className="login-logo" />
             <h2>CONTROL <span className="text-yellow">ADMIN</span></h2>
-            <p>{loginStep === 1 ? 'Área Restringida - Inicie Sesión' : 'Factor de Doble Seguridad'}</p>
+            <p>{loginStep === 1 ? 'Área Restringida - Inicie Sesión' : `Hola ${tempAdmin?.user}, ingrese su PIN`}</p>
           </div>
 
           {loginStep === 1 ? (
@@ -67,7 +70,6 @@ const Login = () => {
                   type="text" 
                   placeholder="Usuario" 
                   className="input-elite"
-                  autoComplete="username"
                   onChange={e => setCredentials({...credentials, user: e.target.value})}
                   required 
                 />
@@ -77,7 +79,6 @@ const Login = () => {
                   type="password" 
                   placeholder="Contraseña" 
                   className="input-elite"
-                  autoComplete="current-password"
                   onChange={e => setCredentials({...credentials, pass: e.target.value})}
                   required 
                 />
@@ -91,16 +92,12 @@ const Login = () => {
                   <div key={i} className={`pin-dot ${pin.length > i ? 'active' : ''}`}></div>
                 ))}
               </div>
-              
               <div className="dynamic-keypad">
                 {keypad.map(num => (
-                  <button key={num} onClick={() => handlePinClick(num)} className="key-btn">
-                    {num}
-                  </button>
+                  <button key={num} onClick={() => setPin(prev => prev + num)} className="key-btn">{num}</button>
                 ))}
                 <button className="key-btn clear" onClick={() => setPin('')}>Borrar</button>
               </div>
-
               <button 
                 className="btn-huracan-elite w-100 mt-4" 
                 disabled={pin.length < 4}
