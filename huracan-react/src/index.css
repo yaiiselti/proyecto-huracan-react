@@ -7,11 +7,108 @@
 /* 2. Componentes */
 @import './styles/components/header.css';
 @import './styles/components/footer.css';
-
+@import './styles/components/Sidebar.css';
 /* 3. Vistas */
 @import './styles/views/home.css';
 @import './styles/views/Reserva.css';
 @import './styles/views/Club.css';
 @import './styles/views/Login.css';
 @import './styles/views/AdminDashboard.css';
-@import './styles/views/Sidebar.css';
+@import './styles/views/Bookings.css';
+@import './styles/views/Reports.css';
+@import './styles/views/NotFound.css';
+
+/* ============================================================
+   ANIMACIONES PÚBLICAS TEMÁTICA "HURACÁN"
+   ============================================================ */
+@keyframes huracanPulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 209, 0, 0.6); }
+  70% { box-shadow: 0 0 0 20px rgba(255, 209, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 209, 0, 0); }
+}
+
+@keyframes huracanFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33% { transform: translateY(-8px) rotate(1deg); }
+  66% { transform: translateY(4px) rotate(-1deg); }
+}
+
+@keyframes huracanSpin {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(18deg) scale(1.2); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+
+.anim-pulse-huracan { animation: huracanPulse 2s infinite; }
+.anim-float-huracan { animation: huracanFloat 6s ease-in-out infinite; }
+.anim-spin-hover:hover { animation: huracanSpin 0.6s ease-in-out; }
+
+/* ============================================================
+   GLOBAL ADMIN MOBILE OPTIMIZATIONS (APP-LIKE EXPERIENCE)
+   ============================================================ */
+@media (max-width: 768px) {
+  .admin-layout-root {
+    flex-direction: column;
+  }
+  
+  .admin-main-panel {
+    /* Dejamos espacio inferior (100px) para la barra de navegación que quedará flotando */
+    padding: 20px 15px 100px 15px !important; 
+  }
+  
+  /* Ocultar marca y perfil del Sidebar, lo transformamos en Bottom Navigation */
+  .sidebar-brand, .sidebar-user-card, .sidebar-footer {
+    display: none !important;
+  }
+  
+  .sidebar-elite {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 75px;
+    padding: 0 10px;
+    background: white;
+    border-radius: 25px 25px 0 0;
+    box-shadow: 0 -10px 30px rgba(0,45,87,0.05);
+    z-index: 9990;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: none;
+  }
+  
+  .sidebar-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    gap: 5px;
+  }
+  
+  .sidebar-link {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 5px !important;
+    flex: 1;
+    border-radius: 15px;
+  }
+  
+  .sidebar-link .icon {
+    margin: 0 0 4px 0 !important;
+    font-size: 1.3rem;
+  }
+  
+  .sidebar-link .text {
+    font-size: 0.65rem;
+    display: block !important; 
+    text-align: center;
+  }
+  
+  .mobile-only-logout {
+    display: flex !important;
+    background: transparent;
+    color: #ef4444;
+  }
+}

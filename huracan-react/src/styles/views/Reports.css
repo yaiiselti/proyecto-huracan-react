@@ -1,0 +1,275 @@
+/* ============================================================
+   SISTEMA DE DISEÑO ELITE - REPORTS
+   ============================================================ */
+
+.reports-header-elite {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.reports-header-elite h1 {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--admin-blue, #002D57);
+  letter-spacing: -1.5px;
+  margin-bottom: 10px;
+}
+
+.reports-filters-container {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.period-filters {
+  background: white;
+  padding: 5px;
+  border-radius: 15px;
+  display: flex;
+  gap: 5px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.btn-filter-period {
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  color: #64748b;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-filter-period.active {
+  background: var(--admin-blue, #002D57);
+  color: white;
+}
+
+.report-section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.5rem;
+  color: var(--admin-blue, #002D57);
+  font-weight: 900;
+  margin: 40px 0 20px;
+}
+
+.reports-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 25px;
+}
+
+.report-card-elite {
+  background: white;
+  border-radius: 25px;
+  padding: 30px;
+  box-shadow: 0 15px 45px rgba(0, 45, 87, 0.08);
+}
+
+.report-card-title {
+  color: var(--admin-blue, #002D57);
+  font-weight: 800;
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+}
+
+/* Gráfico de Barras CSS Puro */
+.chart-container {
+  height: 250px;
+  min-width: 450px;
+  display: flex;
+  align-items: flex-end;
+  gap: 15px;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 10px;
+}
+
+.chart-bar-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.chart-bar {
+  width: 100%;
+  max-width: 50px;
+  background: linear-gradient(180deg, #FFD100, #fbbf24);
+  border-radius: 8px 8px 0 0;
+  min-height: 5px;
+  transition: height 1s ease-out;
+}
+
+.chart-label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #64748b;
+}
+
+.chart-empty {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+/* Pay bars container */
+.pay-bars-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.pay-bar-row {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pay-label {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--admin-blue, #002D57);
+}
+
+.pay-label-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pay-track {
+  width: 100%;
+  background: #f1f5f9;
+  height: 12px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.pay-fill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 1s ease-in-out;
+}
+
+.fill-webpay { background: linear-gradient(90deg, #3b82f6, #2563eb); }
+.fill-transfer { background: linear-gradient(90deg, #10b981, #059669); }
+.fill-cash { background: linear-gradient(90deg, #f59e0b, #d97706); }
+
+/* Progress bar (tasa concreción) */
+.progress-container {
+  display: flex;
+  height: 30px;
+  border-radius: 15px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.progress-segment {
+  height: 100%;
+  transition: width 1s;
+}
+
+.progress-segment.completadas { background: #10b981; }
+.progress-segment.pendientes { background: #3b82f6; }
+.progress-segment.canceladas { background: #ef4444; }
+
+.status-legend-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.status-legend-item {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+/* Horas Punta */
+.popular-hours-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.popular-hour-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #64748b;
+}
+
+.popular-hour-track {
+  width: 100%;
+  background: #f1f5f9;
+  height: 12px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.popular-hour-fill {
+  background: linear-gradient(90deg, #3b82f6, var(--admin-blue, #002D57));
+  height: 100%;
+  border-radius: 10px;
+  transition: width 1s ease-in-out;
+}
+
+/* Utilidades */
+.text-green { color: #10b981 !important; }
+.text-red { color: #ef4444 !important; }
+.text-blue { color: #3b82f6 !important; }
+.bg-yellow-light { background: #fef3c7 !important; color: #d97706 !important; }
+
+.report-scroll-x {
+  overflow-x: auto;
+}
+
+.pay-disclaimer {
+  margin-top: 20px;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.empty-message {
+  color: #64748b;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .reports-header-elite {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .reports-grid-2 {
+    grid-template-columns: 1fr;
+  }
+  .chart-container {
+    min-width: unset;
+    width: 100%;
+    overflow-x: auto;
+  }
+  .chart-bar-wrapper {
+    min-width: 40px;
+  }
+}

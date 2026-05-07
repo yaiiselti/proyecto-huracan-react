@@ -1,109 +1,204 @@
-.admin-main-layout {
+/* =========================================
+   ADMIN DASHBOARD - DISEÑO FINAL ELITE
+   ========================================= */
+
+.admin-layout-root {
     display: flex;
     width: 100vw;
     height: 100vh;
-    background: #f8fafc;
+    background: #f1f5f9;
     overflow: hidden;
 }
 
-.admin-workspace {
+.admin-main-panel {
     flex: 1;
     padding: 60px;
     overflow-y: auto;
+    height: 100vh;
+    transition: all 0.3s ease;
 }
 
-.workspace-header h1 {
-    font-size: 2.8rem;
+.admin-hero-header {
+    margin-bottom: 50px;
+}
+
+.admin-hero-header h1 {
+    font-size: 3rem;
     font-weight: 900;
     color: #002D57;
-    margin-bottom: 5px;
+    letter-spacing: -1px;
 }
 
-.workspace-header p {
+.admin-hero-header p {
     color: #64748b;
+    font-size: 1.2rem;
     font-weight: 600;
-    font-size: 1.1rem;
+    margin-top: 5px;
 }
 
-.metrics-grid-elite {
+.text-yellow {
+    color: #FFD100;
+}
+
+/* GRID DE SECCIONES */
+.summary-grid-elite {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-    margin-top: 50px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-bottom: 50px;
 }
 
-.metric-box {
+.summary-item-card {
     background: white;
     padding: 30px;
     border-radius: 35px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
     border: 1px solid #edf2f7;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.metric-box .icon {
-    font-size: 2.2rem;
-    background: #f1f5f9;
-    width: 65px;
-    height: 65px;
+.summary-item-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 50px rgba(0, 45, 87, 0.1);
+    border-color: #FFD100;
+}
+
+.card-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.summary-item-card .label {
+    font-weight: 800;
+    color: #94a3b8;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+}
+
+.card-icon-ref {
+    font-size: 1.8rem;
+    background: #f8fafc;
+    width: 50px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 20px;
+    border-radius: 15px;
 }
 
-.metric-box h3 {
-    font-size: 1.8rem;
+.summary-item-card .value {
+    font-size: 2.4rem;
     font-weight: 900;
     color: #002D57;
-    margin: 0;
+    margin: 10px 0;
 }
 
-.metric-box span {
-    font-weight: 700;
-    color: #94a3b8;
-    font-size: 0.8rem;
-    text-transform: uppercase;
+.tap-hint {
+    font-size: 0.75rem;
+    color: #FFD100;
+    font-weight: 800;
+    opacity: 0;
+    transition: 0.3s;
 }
 
-.panel-card {
+.summary-item-card:hover .tap-hint {
+    opacity: 1;
+}
+
+/* ACTIVIDAD */
+.dashboard-activity-preview {
     background: white;
     padding: 40px;
     border-radius: 45px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.04);
 }
 
 .card-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #f1f5f9;
+    padding-bottom: 15px;
 }
 
-.activity-item {
+.preview-row {
     display: flex;
     justify-content: space-between;
-    padding: 18px 0;
-    border-bottom: 1px solid #f1f5f9;
-    font-weight: 600;
+    align-items: center;
+    padding: 18px 25px;
+    background: #f8fafc;
+    border-radius: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
 }
 
-.item-tag {
-    padding: 4px 12px;
-    border-radius: 50px;
-    font-size: 0.75rem;
-    text-transform: uppercase;
+.preview-row:hover {
+    background: #002d5710;
+}
+
+/* =========================================
+   VERSION MÓVIL (QUIRÚRGICA)
+   ========================================= */
+
+@media (max-width: 768px) {
+    .admin-main-panel {
+        padding: 90px 20px 40px 20px;
+    }
+
+    .admin-hero-header h1 {
+        font-size: 2rem;
+    }
+
+    .summary-grid-elite {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .summary-item-card {
+        padding: 25px;
+        border-radius: 30px;
+    }
+
+    .summary-item-card .value {
+        font-size: 2rem;
+    }
+
+    .tap-hint {
+        opacity: 1;
+    }
+
+    /* Siempre visible en móvil */
+
+    .preview-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+}
+
+/* Estilo para el botón "Ver todo" en el Dashboard */
+.btn-link {
+    background: transparent;
+    border: none;
+    color: #FFD100; /* Amarillo institucional del club */
     font-weight: 800;
+    font-size: 0.95rem;
+    cursor: pointer;
+    padding: 8px 15px;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
 }
 
-.item-tag.pendiente {
-    background: #fef3c7;
-    color: #92400e;
-}
-
-.item-tag.completada {
-    background: #dcfce7;
-    color: #166534;
+.btn-link:hover {
+    background: rgba(255, 209, 0, 0.1); /* Efecto sutil al pasar el mouse */
+    transform: translateX(5px); /* Desplazamiento quirúrgico hacia la derecha */
 }

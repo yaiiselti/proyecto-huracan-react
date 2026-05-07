@@ -1,0 +1,140 @@
+.dialog-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 45, 87, 0.45);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 99999;
+    /* Sobre todo el resto */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: fadeInDialog 0.2s ease-out;
+}
+
+.dialog-card {
+    background: white;
+    padding: 40px;
+    border-radius: 25px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+    animation: slideUpDialog 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.dialog-title {
+    color: #002D57;
+    font-size: 1.5rem;
+    font-weight: 900;
+    margin: 0 0 15px 0;
+}
+
+.dialog-desc {
+    color: #64748b;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0 0 30px 0;
+    font-weight: 600;
+}
+
+.dialog-buttons {
+    display: grid;
+    gap: 12px;
+}
+
+.dialog-btn-confirm {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 15px;
+    font-weight: 800;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.dialog-btn-confirm:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+}
+
+.dialog-btn-cancel {
+    background: white;
+    color: #64748b;
+    border: 2px solid #e2e8f0;
+    padding: 15px;
+    border-radius: 15px;
+    font-weight: 800;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.dialog-btn-cancel:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    color: #002D57;
+}
+
+.dialog-btn-alert {
+    background: #002D57;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 15px;
+    font-weight: 900;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.dialog-btn-alert:hover {
+    background: #001a33;
+    transform: translateY(-2px);
+}
+
+@keyframes fadeInDialog {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUpDialog {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* RESPONSIVO MÓVIL */
+@media (max-width: 480px) {
+    .dialog-card {
+        padding: 30px 20px;
+        margin: 15px;
+    }
+
+    .dialog-title {
+        font-size: 1.3rem;
+    }
+
+    .dialog-desc {
+        font-size: 0.85rem;
+        margin-bottom: 20px;
+    }
+
+    .dialog-buttons {
+        grid-template-columns: 1fr !important;
+    }
+}

@@ -35,6 +35,14 @@ function Home() {
 
         <div className="hero-overlay"></div>
 
+        {/* EFECTO DE VIENTO HURACÁN */}
+        <div className="wind-particles">
+          <div className="wind-line w-1"></div>
+          <div className="wind-line w-2"></div>
+          <div className="wind-line w-3"></div>
+          <div className="wind-line w-4"></div>
+        </div>
+
         <div className="container home-hero-content">
           <h1 className="home-hero-title">
             CLUB <br />

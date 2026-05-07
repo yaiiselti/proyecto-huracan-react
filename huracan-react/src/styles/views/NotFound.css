@@ -1,0 +1,53 @@
+/* =========================================
+   404 NOT FOUND - ELITE DESIGN
+   ========================================= */
+
+.notfound-wrapper {
+    min-height: 70vh; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    padding: 20px;
+    text-align: center;
+}
+
+.notfound-content {
+    background: white;
+    padding: 60px 40px;
+    border-radius: 50px;
+    box-shadow: 0 20px 50px rgba(0, 45, 87, 0.05);
+    max-width: 600px;
+    width: 100%;
+    border: 1px solid #f1f5f9;
+}
+
+.notfound-error-code {
+    font-size: 8rem;
+    font-weight: 900;
+    color: var(--azul-club);
+    line-height: 1;
+    margin-bottom: 10px;
+    text-shadow: 4px 4px 0px rgba(255, 209, 0, 0.3);
+}
+
+.notfound-title {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--azul-club);
+    margin-bottom: 20px;
+}
+
+.notfound-subtitle {
+    font-size: 1.1rem;
+    color: #64748b;
+    font-weight: 500;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+@media (max-width: 768px) {
+    .notfound-error-code { font-size: 6rem; }
+    .notfound-title { font-size: 2rem; }
+    .notfound-content { padding: 40px 20px; }
+}

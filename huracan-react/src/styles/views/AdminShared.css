@@ -1,0 +1,111 @@
+/* ============================================================
+   ESTILOS COMPARTIDOS - PANELES DE ADMINISTRACIÓN
+   ============================================================ */
+
+.admin-grid-layout {
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.admin-card-base {
+  background: white;
+  padding: 30px;
+  border-radius: 25px;
+  box-shadow: 0 15px 35px rgba(0,45,87,0.05);
+  border: 1px solid #f1f5f9;
+  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.admin-card-title {
+  color: #002D57;
+  font-weight: 900;
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+}
+
+/* Formularios */
+.admin-form-col {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.admin-input-base {
+  padding: 15px;
+  border-radius: 15px;
+  border: 2px solid #f1f5f9;
+  font-weight: 600;
+  outline: none;
+  transition: 0.2s;
+  width: 100%;
+}
+
+.admin-input-base:focus {
+  border-color: #3b82f6;
+}
+
+.admin-btn-primary {
+  background: #002D57;
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 15px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-top: 10px;
+}
+.admin-btn-primary:hover { background: #001a33; transform: translateY(-2px); }
+
+.admin-btn-danger {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 15px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-top: 10px;
+}
+.admin-btn-danger:hover { background: #dc2626; transform: translateY(-2px); }
+
+/* Listas de elementos (Staff, Blacklist, Dashboard) */
+.admin-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.admin-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: #f8fafc;
+  border-radius: 12px;
+  border-left: 5px solid #3b82f6;
+  transition: 0.2s;
+}
+.admin-list-item:hover { background: white; border-color: #002D57; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+.admin-list-item.danger-item { background: #fff1f2; border-left-color: #ef4444; }
+.admin-list-item.super-item { border-left-color: #FFD100; }
+
+.admin-list-item strong { display: block; color: #002D57; font-size: 1.05rem; }
+.admin-list-item.danger-item strong { color: #991b1b; }
+
+.admin-list-item span { color: #64748b; font-size: 0.85rem; font-weight: 600; }
+.admin-list-item.danger-item span { color: #b91c1c; }
+
+.admin-btn-outline-danger {
+  background: white;
+  border: 1px solid #fca5a5;
+  color: #ef4444;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.admin-btn-outline-danger:hover { background: #ef4444; color: white; }

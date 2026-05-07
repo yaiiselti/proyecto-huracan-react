@@ -1,0 +1,130 @@
+.blacklist-layout {
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.blacklist-card {
+    background: white;
+    padding: 30px;
+    border-radius: 25px;
+    box-shadow: 0 15px 35px rgba(0, 45, 87, 0.05);
+    border: 1px solid #f1f5f9;
+}
+
+.blacklist-title {
+    color: #002D57;
+    font-weight: 900;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+}
+
+.blacklist-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.blacklist-input {
+    padding: 15px;
+    border-radius: 15px;
+    border: 2px solid #f1f5f9;
+    font-weight: 600;
+    outline: none;
+    transition: 0.2s;
+    width: 100%;
+}
+
+.blacklist-input:focus {
+    border-color: #ef4444;
+}
+
+.blacklist-btn-add {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 15px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-top: 10px;
+}
+
+.blacklist-btn-add:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+}
+
+.blacklist-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.blacklist-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: #fff1f2;
+    border-radius: 12px;
+    border-left: 5px solid #ef4444;
+    transition: 0.2s;
+}
+
+.blacklist-item:hover {
+    background: white;
+    border-color: #b91c1c;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.blacklist-item strong {
+    display: block;
+    color: #991b1b;
+    font-size: 1.05rem;
+}
+
+.blacklist-item span {
+    color: #b91c1c;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.blacklist-btn-remove {
+    background: white;
+    border: 1px solid #fca5a5;
+    color: #ef4444;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.blacklist-btn-remove:hover {
+    background: #ef4444;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .blacklist-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .blacklist-card {
+        padding: 20px;
+    }
+
+    .blacklist-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .blacklist-btn-remove {
+        width: 100%;
+        padding: 12px;
+        text-align: center;
+    }
+}

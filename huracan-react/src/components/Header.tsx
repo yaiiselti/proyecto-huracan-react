@@ -1,86 +1,61 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import '../styles/components/header.css';
 
-import logoHuracan from '../assets/img/logo_huracan.png';
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
 
-  // Si la ruta empieza con /admin o es el /login, no renderizamos nada
-  if (location.pathname.startsWith('/admin') || location.pathname === '/login') {
+  // Bloquear el scroll de la página de fondo cuando el menú móvil está abierto
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => { document.body.style.overflow = 'unset'; };
+  }, [isMenuOpen]);
+
+  // SEGURIDAD / UX: Ocultar el Header público si estamos en el panel de administrador o login
+  if (location.pathname.startsWith('/admin') || location.pathname.startsWith('/login')) {
     return null;
   }
 
-  return (
-    <header className="header-elite">
-      {/* Tu código actual del Header aquí... */}
-    </header>
-  );
-
-  
-
-  // Control de scroll natural: Bloquea el fondo solo en móvil
-  useEffect(() => {
-    const handleScrollLock = () => {
-      // Bloquea scroll solo si el menú está abierto Y es pantalla móvil
-      if (isMenuOpen && window.innerWidth <= 768) {
-        document.body.classList.add('lock-scroll');
-      } else {
-        document.body.classList.remove('lock-scroll');
-      }
-    };
-
-    handleScrollLock();
-    window.addEventListener('resize', handleScrollLock);
-    return () => {
-      document.body.classList.remove('lock-scroll');
-      window.removeEventListener('resize', handleScrollLock);
-    };
-  }, [isMenuOpen]);
-
-  const getActiveClass = (path: string) =>
-    location.pathname === path ? "header-link-active" : "";
+  const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <header className="header-elite">
-      <div className="header-glow-bar"></div>
+    <>
+      <header className="header-elite">
+        <div className="header-glow-bar"></div>
+        <div className="header-container">
+          <Link to="/" className="header-logo" onClick={closeMenu}>
+            <img src="/logo_huracan.png" alt="Logo Huracán" className="header-logo-img" />
+            <span className="logo-text">HURACÁN</span>
+          </Link>
 
-      <div className="header-container">
-        {/* LOGO - Z-index bajo para quedar tras el menú */}
-        <Link to="/" className="header-logo" onClick={() => setIsMenuOpen(false)}>
-          <img src={logoHuracan} alt="Huracán Logo" className="header-logo-img" />
-          <span className="logo-text">HURACÁN<span className="text-blue">.</span></span>
-        </Link>
+          <button 
+            className={`menu-toggle ${isMenuOpen ? 'active' : ''}`} 
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Abrir menú"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
 
-        {/* BOTÓN HAMBURGUESA - Z-index alto para estar siempre arriba */}
-        <button
-          className={`menu-toggle ${isMenuOpen ? 'active' : ''}`}
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+          <nav className={`header-nav ${isMenuOpen ? 'nav-open' : ''}`}>
+            <div className="nav-menu-inner">
+              <Link to="/" className={`nav-link ${location.pathname === '/' ? 'header-link-active' : ''}`} onClick={closeMenu}>Inicio</Link>
+              <Link to="/club" className={`nav-link ${location.pathname === '/club' ? 'header-link-active' : ''}`} onClick={closeMenu}>El Club</Link>
+              <Link to="/reserva" className={`nav-link ${location.pathname === '/reserva' ? 'header-link-active' : ''}`} onClick={closeMenu}>Reservar Cancha</Link>
+            </div>
+          </nav>
+        </div>
+      </header>
 
-        {/* MENÚ LATERAL - Ahora con posición FIJA absoluta */}
-        <nav className={`header-nav ${isMenuOpen ? 'nav-open' : ''}`}>
-          <div className="nav-menu-inner">
-            <Link to="/" className={`nav-link ${getActiveClass('/')}`} onClick={() => setIsMenuOpen(false)}>
-              Inicio
-            </Link>
-            <Link to="/Reserva" className={`nav-link ${getActiveClass('/Reserva')}`} onClick={() => setIsMenuOpen(false)}>
-              Arrendar
-            </Link>
-            <Link to="/Club" className={`nav-link ${getActiveClass('/Club')}`} onClick={() => setIsMenuOpen(false)}>
-              Club
-            </Link>
-          </div>
-        </nav>
-      </div>
-
-      {/* OVERLAY: Al tocar la zona oscura, el menú se guarda solo */}
-      {isMenuOpen && <div className="menu-blur-overlay" onClick={() => setIsMenuOpen(false)}></div>}
-    </header>
+      {/* Overlay movido AFUERA para que desenfoque toda la página libremente */}
+      {isMenuOpen && <div className="menu-blur-overlay" onClick={closeMenu}></div>}
+    </>
   );
 }
 

@@ -1,0 +1,803 @@
+/* ============================================================
+   SISTEMA DE DISEÑO ELITE - BOOKINGS
+   ============================================================ */
+
+:root {
+  --admin-blue: #002D57;
+  --admin-yellow: #FFD100;
+  --admin-red: #ef4444;
+  --admin-green: #10b981;
+  --bg-main: #f1f5f9;
+  --card-white: #ffffff;
+  --shadow-elite: 0 15px 45px rgba(0, 45, 87, 0.08);
+  --radius-pro: 25px;
+  --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* BASE LAYOUT PARA QUE MÓVIL Y DESKTOP CONVIVAN PERFECTO */
+.admin-layout-root {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* 1. CONTENEDOR RAÍZ */
+.admin-main-panel {
+  flex: 1;
+  padding: 40px;
+  background: var(--bg-main);
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+/* 2. CABECERA Y CONTROLES */
+.bookings-header-elite {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.title-stack h1 {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--admin-blue);
+  letter-spacing: -1.5px;
+  margin-bottom: 10px;
+}
+
+.header-controls {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Selector de Fecha */
+.date-input-elite {
+  padding: 14px 22px;
+  border-radius: 18px;
+  border: 2px solid var(--admin-blue);
+  font-weight: 800;
+  color: var(--admin-blue);
+  background: white;
+  outline: none;
+  cursor: pointer;
+  box-shadow: var(--shadow-elite);
+}
+
+/* Buscador Moderno */
+.search-bar-elite {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 10px 20px;
+  border-radius: 18px;
+  border: 1px solid #e2e8f0;
+  min-width: 320px;
+  box-shadow: var(--shadow-elite);
+}
+
+.search-bar-elite .icon { margin-right: 12px; font-size: 1.2rem; }
+.search-bar-elite input {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  font-weight: 700;
+  color: var(--admin-blue);
+}
+
+/* 3. MENÚ DE ACCIONES MASIVAS */
+.fast-actions-container { position: relative; }
+.btn-actions-trigger {
+  background: var(--admin-blue);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 18px;
+  font-weight: 800;
+  font-size: 0.9rem;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.fast-actions-dropdown {
+  position: absolute;
+  right: 0;
+  top: 65px;
+  background: white;
+  width: 250px;
+  border-radius: 22px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+  z-index: 1000;
+  overflow: hidden;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn { from { opacity: 0; transform: translateY(-15px); } to { opacity: 1; transform: translateY(0); } }
+
+.fast-actions-dropdown button {
+  width: 100%;
+  padding: 18px 25px;
+  border: none;
+  background: transparent;
+  text-align: left;
+  font-weight: 800;
+  color: var(--admin-blue);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.fast-actions-dropdown button:hover { background: #f8fafc; color: var(--admin-yellow); }
+.fast-actions-dropdown button.danger { color: var(--admin-red); border-top: 1px solid #f1f5f9; }
+
+/* 4. AGENDA GRID (MOBILE OPTIMIZED) */
+.agenda-grid-pro {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 25px;
+}
+
+.slot-item {
+  background: white;
+  border-radius: var(--radius-pro);
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  transition: var(--transition-smooth);
+  border: 2px solid transparent;
+  flex-wrap: wrap; /* Evita que el contenedor explote en pantallas diminutas */
+}
+
+/* Estados Visuales */
+.slot-item.free { border-left: 10px solid var(--admin-green); border-color: #f1f5f9; }
+.slot-item.reserved { border-left: 10px solid var(--admin-blue); background: #f8fafc; }
+.slot-item.blocked { border-left: 10px solid var(--admin-red); background: #fff1f2; }
+.slot-item.past { border-left: 10px solid #cbd5e1; background: #f8fafc; opacity: 0.75; }
+
+.slot-item:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.06); }
+
+.add-slot-card { cursor: pointer; background: white; border: 2px dashed #cbd5e1 !important; justify-content: center; }
+.add-slot-card:hover { border-color: var(--admin-blue) !important; background: #f8fafc; }
+.badge-blk { background: #fee2e2; color: #b91c1c; font-size: 0.7rem; font-weight: 800; padding: 3px 6px; border-radius: 8px; }
+.cal-day-cell.selected .badge-blk { background: rgba(255,255,255,0.2); color: white; }
+
+.slot-time-box {
+  background: var(--admin-blue);
+  color: white;
+  padding: 12px;
+  border-radius: 18px;
+  font-weight: 900;
+  font-size: 1.05rem;
+  min-width: 80px;
+  text-align: center;
+}
+
+.free .slot-time-box { background: #f1f5f9; color: #94a3b8; }
+
+.slot-info { flex: 1; }
+
+.reserva-tag, .free-tag {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 15px;
+  flex-wrap: wrap; /* Permite que los botones bajen si no hay espacio */
+}
+
+.reserva-tag strong { font-size: 1rem; color: var(--admin-blue); }
+
+.status-label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 5px 12px;
+  border-radius: 10px;
+  letter-spacing: 0.5px;
+}
+.free-label { background: #dcfce7; color: #166534; }
+.blocked-label { background: #fee2e2; color: #b91c1c; }
+
+.btn-details {
+  background: white;
+  border: 1.5px solid var(--admin-blue);
+  padding: 8px 15px;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 0.75rem;
+  cursor: pointer;
+  color: var(--admin-blue);
+}
+
+.btn-details:hover { background: var(--admin-blue); color: white; }
+
+.btn-block-trigger {
+  background: white;
+  border: 2px solid transparent;
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+.btn-block-trigger.lock { border-color: var(--admin-blue); color: var(--admin-blue); }
+.btn-block-trigger.lock:hover { background: var(--admin-blue); color: white; transform: translateY(-2px); }
+.btn-block-trigger.unlock { border-color: var(--admin-green); color: var(--admin-green); }
+.btn-block-trigger.unlock:hover { background: var(--admin-green); color: white; transform: translateY(-2px); }
+
+/* ORDENAMIENTO DE BOTONES (NUEVO) */
+.slot-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn-delete-slot {
+  color: #ef4444 !important;
+  border-color: #fee2e2 !important;
+  background: #fff5f5 !important;
+}
+.btn-delete-slot:hover {
+  background: #ef4444 !important;
+  color: white !important;
+}
+
+/* 5. MODALES PROFESIONALES (GLASSMORPHISM) */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 45, 87, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px); /* FIX: Desenfoque forzado en iOS/Safari */
+  z-index: 99999;
+  display: flex;
+  align-items: flex-start; /* Permite scroll vertical en móviles si es muy alto */
+  justify-content: center;
+  padding: 20px 15px;
+  overflow-y: auto; /* Scroll seguro */
+}
+
+.modal-card-details, .modal-card-compact {
+  background: white;
+  border-radius: 35px;
+  width: 100%;
+  max-width: 500px;
+  margin: auto; /* Centrado automático con flex-start */
+  box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+  animation: popUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popUp { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+.modal-header-pro {
+  background: var(--admin-blue);
+  color: white;
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-body-pro { padding: 40px; }
+.info-row { display: flex; justify-content: space-between; padding: 18px 0; border-bottom: 1px solid #f1f5f9; font-weight: 700; gap: 15px; word-break: break-word; }
+.info-row span { color: #94a3b8; }
+
+.btn-cancel-reserva {
+  width: 100%;
+  padding: 20px;
+  background: #fee2e2;
+  color: var(--admin-red);
+  border: none;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+/* 6. RESPONSIVO MÓVIL (CRÍTICO) */
+@media (max-width: 768px) {
+  .admin-layout-root { flex-direction: column; }
+  
+  /* Aumentamos el padding inferior para que la App Bottom Bar no tape el calendario */
+  .admin-main-panel { padding: 30px 15px 100px 15px; }
+
+  .title-stack h1 { font-size: 2rem; }
+
+  .header-controls { flex-direction: column; align-items: stretch; }
+  .search-bar-elite { min-width: 100%; }
+  .date-input-elite { width: 100%; text-align: center; }
+
+  .agenda-grid-pro { grid-template-columns: 1fr; }
+
+  .slot-item {
+    padding: 15px;
+    gap: 12px;
+  }
+
+  .slot-time-box {
+    min-width: 70px;
+    font-size: 1rem;
+    padding: 10px;
+  }
+
+  .reserva-tag strong { font-size: 0.95rem; }
+
+  .action-grid-buttons {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 20px;
+  }
+  
+  /* Botones grandes en móvil para evitar clics erróneos */
+  .action-grid-buttons button {
+    padding: 18px;
+    border-radius: 15px;
+    font-size: 1rem;
+  }
+
+  /* ARREGLOS QUIRÚRGICOS PARA MODALES EN MÓVILES */
+  .modal-card-details, .modal-card-compact {
+    border-radius: 25px;
+  }
+  .modal-header-pro { padding: 20px; }
+  .modal-body-pro { padding: 25px 20px; }
+  .info-row {
+    flex-direction: column; /* Apila el título y el valor para que los textos largos no desborden */
+    gap: 6px;
+    padding: 12px 0;
+  }
+  .info-row span:first-child { font-size: 0.85rem; }
+  .modal-card-compact { padding: 30px 20px !important; } /* Reduce los bordes masivos del modal de bloqueo */
+  
+  .btn-block-option { padding: 12px !important; }
+  .btn-block-option strong { font-size: 0.95rem; }
+  .btn-block-option small { font-size: 0.75rem; }
+}
+
+
+/* ============================================================
+   ELEMENTOS FALTANTES DETECTADOS
+   ============================================================ */
+
+/* 1. UTILIDADES GLOBALES */
+.text-yellow { 
+    color: var(--admin-yellow); 
+}
+
+/* 2. BUSCADOR: RESULTADOS FLOTANTES */
+.search-results-overlay {
+    margin-top: 30px;
+    background: white;
+    padding: 30px;
+    border-radius: var(--radius-pro);
+    box-shadow: var(--shadow-elite);
+    animation: slideIn 0.3s ease;
+}
+
+.results-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    background: #f8fafc;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: 0.2s;
+    border: 1px solid transparent;
+}
+
+.result-item:hover {
+    background: white;
+    border-color: var(--admin-blue);
+    transform: scale(1.01);
+}
+
+.result-item strong { color: var(--admin-blue); }
+.result-item small.status {
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+/* 3. MODALES: ESTRUCTURAS INTERNAS */
+.modal-header-simple {
+    margin-bottom: 20px;
+}
+
+.close-x {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: 0.2s;
+}
+
+.close-x:hover { opacity: 1; }
+
+.status-badge {
+    padding: 6px 14px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 900;
+}
+
+/* Variantes de estado para las insignias */
+.status-badge.pendiente { background: #fef3c7; color: #92400e; }
+.status-badge.completada { background: #dcfce7; color: #166534; }
+.status-badge.cancelada { background: #fee2e2; color: #b91c1c; }
+
+.modal-actions-footer {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid #f1f5f9;
+}
+
+.btn-close-footer {
+    padding: 15px;
+    background: #f8fafc;
+    border: none;
+    color: #64748b;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-close-footer:hover { background: #f1f5f9; color: var(--admin-blue); }
+
+/* 4. ADAPTACIÓN MÓVIL ADICIONAL */
+@media (max-width: 768px) {
+    .result-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .search-results-overlay {
+        padding: 20px;
+    }
+}
+
+
+/* ============================================================
+   AJUSTES QUIRÚRGICOS: MODAL DE BLOQUEO TEMPORAL
+   ============================================================ */
+
+/* Asegura el centrado absoluto del modal en cualquier pantalla */
+.modal-overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 45, 87, 0.45);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); /* FIX: Desenfoque forzado en iOS/Safari */
+    z-index: 99999; /* Prioridad máxima sobre el Sidebar Mobile */
+}
+
+/* Ajuste de la tarjeta del modal para evitar recortes de texto */
+.modal-card-compact {
+    background: white;
+    padding: 40px;
+    border-radius: var(--radius-pro);
+    width: 90%;
+    max-width: 450px; /* Un poco más ancho para PC */
+    text-align: center;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra el contenido internamente */
+}
+
+/* Centrado real del título del bloqueo */
+.modal-header-simple {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.modal-header-simple h3 {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--admin-blue);
+    text-align: center;
+}
+
+/* Ajuste del párrafo descriptivo */
+.modal-card-compact p {
+    margin: 10px 0 25px 0;
+    color: #64748b;
+    font-weight: 600;
+    line-height: 1.5;
+    text-align: center;
+}
+
+/* Mensaje de advertencia para bloqueos múltiples */
+.modal-card-compact p.modal-warning {
+    background: #fffbeb;
+    color: #d97706;
+    padding: 12px 15px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    margin: -10px 0 20px 0;
+    border: 1px solid #fde68a;
+}
+
+/* Corrección de los botones para que el texto no se recorte */
+.action-grid-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 columnas en PC */
+    gap: 15px;
+    width: 100%;
+}
+
+.action-grid-buttons button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 10px;
+    border: 2px solid #e2e8f0;
+    background: white;
+    border-radius: 15px;
+    font-weight: 800;
+    color: var(--admin-blue);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    font-size: 0.95rem;
+    white-space: nowrap; /* Evita que el texto se rompa en 2 líneas */
+    min-height: 55px;
+}
+
+.action-grid-buttons button:hover {
+    border-color: var(--admin-blue);
+    background: #f8fafc;
+    transform: translateY(-2px);
+}
+
+/* Botón Cancelar Estilizado y Discreto */
+.btn-cancel-outline {
+    width: 100%;
+    margin-top: 10px;
+    background: white;
+    border: 2px solid #e2e8f0;
+    color: #64748b;
+    padding: 15px;
+    border-radius: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+.btn-cancel-outline:hover { background: #f8fafc; border-color: #cbd5e1; color: #0f172a; }
+
+/* AJUSTE MÓVIL PARA EL GRID DEL MODAL */
+@media (max-width: 480px) {
+    .action-grid-buttons {
+        grid-template-columns: 1fr; /* Una sola columna para que el texto respire */
+    }
+    .modal-card-compact {
+        padding: 30px 20px;
+    }
+    .modal-header-simple h3 {
+        font-size: 1.3rem;
+    }
+}
+
+/* --- AÑADIR/REEMPLAZAR ESTOS ESTILOS ESPECÍFICOS --- */
+
+.modal-card-compact {
+    padding: 45px 40px;
+    width: 95%;
+    max-width: 480px; /* Evita que el texto se amontone */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrado real de textos y botones */
+}
+
+.hour-focus {
+    display: inline-block;
+    background: #f1f5f9;
+    color: var(--admin-blue);
+    padding: 5px 15px;
+    border-radius: 10px;
+    font-weight: 900;
+    margin-bottom: 20px;
+}
+
+.action-grid-buttons button {
+    min-height: 60px; /* Altura mínima para que el texto no se corte */
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    white-space: normal; /* Permite que el texto baje si es necesario sin recortarse */
+}
+
+/* Estilo para el nuevo botón de liberación */
+.btn-confirm-unlock {
+    grid-column: span 2;
+    background: var(--admin-green) !important;
+    color: white !important;
+    border: none !important;
+}
+
+.btn-secondary-outline {
+    grid-column: span 2;
+    border: 2px solid #e2e8f0 !important;
+    color: #94a3b8 !important;
+}
+
+/* --- OPCIONES DE BLOQUEO (UX AVANZADA) --- */
+.block-options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    grid-column: span 2;
+}
+
+.btn-block-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px !important;
+    background: white;
+    border: 2px solid #f1f5f9 !important;
+    min-height: auto !important;
+}
+.btn-block-option strong { color: var(--admin-blue); font-size: 1rem; margin-bottom: 4px; }
+.btn-block-option small { color: #64748b; font-size: 0.75rem; line-height: 1.2; }
+.btn-block-option:hover { border-color: var(--admin-blue) !important; background: #f8fafc !important; }
+
+/* --- AÑADIR AL FINAL DE Bookings.css --- */
+
+.past-no-activity {
+    color: #64748b;
+    font-size: 0.8rem;
+    font-weight: 800;
+    background: #f1f5f9;
+    padding: 6px 14px;
+    border-radius: 10px;
+}
+
+/* Botón de borrado definitivo para el admin */
+.btn-delete-db {
+    width: 100%;
+    padding: 15px;
+    background: white;
+    color: #ef4444; /* Rojo suave */
+    border: none;
+    border-top: 1px solid #f1f5f9;
+    font-weight: 800;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-delete-db:hover {
+    background: #fff1f2;
+    color: #b91c1c;
+}
+
+/* ============================================================
+   CALENDARIO MENSUAL FUSIONADO
+   ============================================================ */
+.calendar-fusion-container {
+  background: white;
+  border-radius: var(--radius-pro);
+  padding: 22px;
+  box-shadow: var(--shadow-elite);
+  margin-bottom: 30px;
+  border: 1px solid #f1f5f9;
+}
+
+.calendar-fusion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.calendar-fusion-header h2 {
+  color: var(--admin-blue);
+  font-weight: 900;
+  text-transform: capitalize;
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+.btn-cal-nav {
+  background: #f1f5f9;
+  border: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 15px;
+  color: var(--admin-blue);
+  font-weight: 900;
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+.btn-cal-nav:hover { background: var(--admin-blue); color: white; transform: scale(1.05); }
+
+.calendar-fusion-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12px;
+}
+
+.cal-day-name {
+  text-align: center;
+  font-weight: 900;
+  color: #94a3b8;
+  font-size: 0.85rem;
+  padding-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.cal-day-cell {
+  background: #f8fafc;
+  border-radius: 16px;
+  padding: 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.2s;
+  min-height: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid transparent;
+  gap: 5px;
+}
+
+.cal-day-cell:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.04); border-color: #cbd5e1; background: white; }
+.cal-day-cell.empty { background: transparent; cursor: default; }
+.cal-day-cell.empty:hover { transform: none; box-shadow: none; border-color: transparent; background: transparent; }
+.cal-day-cell.today { background: #eff6ff; border-color: #bfdbfe; }
+.cal-day-cell.selected { background: var(--admin-blue); color: white; border-color: var(--admin-blue); transform: scale(1.05); box-shadow: 0 15px 25px rgba(0, 45, 87, 0.2); }
+
+.day-number { font-weight: 900; font-size: 1.05rem; }
+.cal-day-cell.selected .day-number { color: white; }
+.cal-day-cell:not(.selected) .day-number { color: var(--admin-blue); }
+
+.day-stats-badges { display: flex; flex-direction: column; gap: 4px; width: 100%; }
+.badge-res { background: #fef3c7; color: #d97706; font-size: 0.65rem; font-weight: 800; padding: 2px 5px; border-radius: 8px; }
+.badge-ing { background: #dcfce7; color: #166534; font-size: 0.65rem; font-weight: 800; padding: 2px 5px; border-radius: 8px; }
+
+.cal-day-cell.selected .badge-res, .cal-day-cell.selected .badge-ing { background: rgba(255,255,255,0.2); color: white; }
+
+.daily-agenda-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; padding-top: 15px; border-top: 2px dashed #e2e8f0; }
+.daily-agenda-header h3 { color: var(--admin-blue); font-weight: 900; margin: 0; font-size: 1.2rem; text-transform: capitalize; }
+.daily-summary-stats { display: flex; gap: 15px; }
+
+@media (max-width: 768px) {
+  .calendar-fusion-grid { gap: 6px; }
+  .cal-day-cell { padding: 8px 4px; min-height: 65px; border-radius: 12px; }
+  .day-number { font-size: 0.95rem; }
+  .badge-ing { display: none; }
+  .badge-res { font-size: 0.6rem; padding: 2px; }
+  .calendar-fusion-container { padding: 20px 15px; }
+  .daily-agenda-header { flex-direction: column; align-items: flex-start; gap: 15px; }
+  .hide-on-mobile { display: none !important; }
+}

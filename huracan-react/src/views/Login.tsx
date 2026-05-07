@@ -2,65 +2,73 @@ import { useState, useEffect } from 'react';
 import { useNotification } from '../context/NotificationContext';
 import { AuthService } from '../services/authService'; 
 import type { AdminUser } from '../services/authService';// Importamos el tipo AdminUser
+import { useNavigate, Link } from 'react-router-dom';
 import '../styles/views/Login.css';
 
 const Login = () => {
   const { showNotification } = useNotification();
+  const navigate = useNavigate();
   const [loginStep, setLoginStep] = useState(1);
   const [credentials, setCredentials] = useState({ user: '', pass: '' });
   
-  // NUEVO: Estado para guardar temporalmente los datos del admin antes del PIN
   const [tempAdmin, setTempAdmin] = useState<AdminUser | null>(null);
   
-  const [pin, setPin] = useState('');
-  const [keypad, setKeypad] = useState<number[]>([]);
-
-  useEffect(() => {
-    if (loginStep === 2) {
-      const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].sort(() => Math.random() - 0.5);
-      setKeypad(numbers);
-    }
-  }, [loginStep]);
+  // SEGURIDAD: 2FA (Código OTP)
+  const [otp, setOtp] = useState('');
+  const [generatedOtp, setGeneratedOtp] = useState('');
 
   const handleNextStep = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // CAMBIO CLAVE: Obtenemos el objeto completo del usuario
     const adminFound = AuthService.verifyCredentials(credentials.user, credentials.pass);
     
     if (adminFound) {
-      setTempAdmin(adminFound); // Guardamos el perfil encontrado
+      setTempAdmin(adminFound);
       setLoginStep(2);
-      showNotification("Identidad verificada. Ingrese su PIN dinámico.");
+      
+      // Generar código OTP simulado de 6 dígitos
+      const code = Math.floor(100000 + Math.random() * 900000).toString();
+      setGeneratedOtp(code);
+      
+      showNotification("Identidad verificada. Se ha enviado un código a su correo.");
+      alert(`[SIMULADOR DE EMAIL]\n\nAsunto: Código de Verificación\n\nTu código de acceso temporal es: ${code}\n\n(En producción este aviso no aparece y el código llega al correo real)`);
     } else {
       showNotification("Usuario o contraseña incorrectos", "error");
     }
   };
 
-  const handleAccess = () => {
-    // CAMBIO CLAVE: Verificamos el PIN y guardamos EL OBJETO, no solo el nombre
-    if (AuthService.verifyPIN(pin) && tempAdmin) {
-      AuthService.saveSession(tempAdmin); // Guardamos perfil completo: Nombre, Email y Rol
+  const handleAccess = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Verificamos el Código de Seguridad
+    if (otp === generatedOtp && tempAdmin) {
+      AuthService.saveSession(tempAdmin);
       showNotification("Acceso concedido. Cargando panel...");
       
       setTimeout(() => {
-        window.location.href = '/admin/dashboard';
+        navigate('/admin/dashboard');
       }, 1000);
     } else {
-      showNotification("PIN de seguridad incorrecto", "error");
-      setPin('');
+      showNotification("El código ingresado es incorrecto o ha expirado.", "error");
+      setOtp('');
     }
   };
 
   return (
     <div className="login-wrapper fade-in">
-      {/* ... El resto del HTML se mantiene igual ... */}
+      
+      {/* BOTÓN DE ESCAPE SEGURO */}
+      <Link to="/" className="btn-back-home">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Volver al Inicio
+      </Link>
+
       <div className="login-container">
         <div className="login-card-elite">
           <div className="login-header">
             <img src="/logo_huracan.png" alt="Logo Huracán" className="login-logo" />
             <h2>CONTROL <span className="text-yellow">ADMIN</span></h2>
-            <p>{loginStep === 1 ? 'Área Restringida - Inicie Sesión' : `Hola ${tempAdmin?.user}, ingrese su PIN`}</p>
+            <p>{loginStep === 1 ? 'Área Restringida - Inicie Sesión' : `Hola ${tempAdmin?.user}, ingresa el código enviado a tu correo`}</p>
           </div>
 
           {loginStep === 1 ? (
@@ -83,29 +91,35 @@ const Login = () => {
                   required 
                 />
               </div>
-              <button type="submit" className="btn-huracan-elite w-100 mt-4">SIGUIENTE PASO</button>
+              <button type="submit" className="btn-huracan-elite w-100 mt-4">
+                ENVIAR CÓDIGO
+              </button>
             </form>
           ) : (
-            <div className="pin-section fade-in">
-              <div className="pin-display">
-                {[...Array(4)].map((_, i) => (
-                  <div key={i} className={`pin-dot ${pin.length > i ? 'active' : ''}`}></div>
-                ))}
-              </div>
-              <div className="dynamic-keypad">
-                {keypad.map(num => (
-                  <button key={num} onClick={() => setPin(prev => prev + num)} className="key-btn">{num}</button>
-                ))}
-                <button className="key-btn clear" onClick={() => setPin('')}>Borrar</button>
+            <form className="pin-section fade-in" onSubmit={handleAccess}>
+              <div className="input-group-elite mb-4">
+                <input 
+                  type="text" 
+                  placeholder="123456" 
+                  maxLength={6}
+                  className="otp-input"
+                  value={otp}
+                  onChange={e => setOtp(e.target.value.replace(/\D/g, ''))} /* Solo permite números */
+                  required 
+                  autoFocus
+                />
               </div>
               <button 
+                type="submit"
                 className="btn-huracan-elite w-100 mt-4" 
-                disabled={pin.length < 4}
-                onClick={handleAccess}
+                disabled={otp.length < 6}
               >
                 ENTRAR AL SISTEMA
               </button>
-            </div>
+              <button type="button" className="btn-login-cancel mt-3" onClick={() => { setLoginStep(1); setOtp(''); setGeneratedOtp(''); }}>
+                Cancelar y volver
+              </button>
+            </form>
           )}
         </div>
       </div>

@@ -41,64 +41,70 @@
     margin-bottom: 30px;
 }
 
-/* TECLADO DINÁMICO */
-.pin-display {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 30px;
+/* BOTÓN DE RETORNO Y OTP */
+.btn-back-home {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #cbd5e1;
+  font-weight: 800;
+  text-decoration: none;
+  transition: 0.3s ease;
+  background: rgba(255,255,255,0.1);
+  padding: 12px 20px;
+  border-radius: 15px;
 }
 
-.pin-dot {
-    width: 15px;
-    height: 15px;
-    border: 2px solid #edf2f7;
-    border-radius: 50%;
-    transition: 0.3s;
+.btn-back-home:hover {
+  background: rgba(255,255,255,0.2);
+  color: white;
+  transform: translateX(-5px);
 }
 
-.pin-dot.active {
-    background: var(--amarillo-club);
-    border-color: var(--amarillo-club);
-    transform: scale(1.2);
-    box-shadow: 0 0 15px rgba(255, 209, 0, 0.4);
+.otp-input {
+  text-align: center;
+  font-size: 2.2rem !important;
+  letter-spacing: 15px;
+  font-family: monospace;
+  font-weight: 900 !important;
+  background: #f8fafc !important;
+  border: 2px solid #e2e8f0;
+  padding: 15px;
+  border-radius: 15px;
+  width: 100%;
+  color: var(--azul-club);
+  outline: none;
+  transition: 0.2s;
 }
 
-.dynamic-keypad {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-    max-width: 280px;
-    margin: 0 auto;
+.otp-input:focus {
+  border-color: var(--amarillo-club);
+  box-shadow: 0 0 0 4px rgba(255, 209, 0, 0.2);
 }
 
-.key-btn {
-    background: #f8fafc;
-    border: 2px solid #edf2f7;
-    padding: 15px;
-    border-radius: 20px;
-    font-weight: 800;
-    font-size: 1.2rem;
-    color: var(--azul-club);
-    cursor: pointer;
-    transition: 0.2s;
+.btn-login-cancel {
+  background: transparent;
+  color: #94a3b8;
+  border: none;
+  font-weight: 800;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: 0.2s;
+  width: 100%;
 }
 
-.key-btn:hover {
-    background: var(--azul-club);
-    color: white;
-    border-color: var(--azul-club);
-    transform: translateY(-2px);
-}
-
-.key-btn.clear {
-    background: #fff1f2;
-    color: #ef4444;
-    border-color: #fee2e2;
-}
+.btn-login-cancel:hover { color: var(--amarillo-club); text-decoration: underline; }
 
 /* RESPONSIVE */
 @media (max-width: 480px) {
+    .btn-back-home {
+      top: 20px; 
+      left: 20px; 
+    }
+    .otp-input { letter-spacing: 8px; font-size: 1.8rem !important; }
     .login-card-elite {
         padding: 40px 25px;
     }

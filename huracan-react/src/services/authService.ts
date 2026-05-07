@@ -1,80 +1,56 @@
 // src/services/authService.ts
 
 export interface AdminUser {
-  id: string;
   user: string;
-  role: 'ADMIN_MASTER' | 'STAFF';
+  role: string;
   email: string;
-  password?: string; // Opcional para las pruebas
 }
 
-const ADMIN_LIST_KEY = 'huracan_admins';
-const SESSION_KEY = 'huracan_admin_session';
-
 export const AuthService = {
-  // 1. Obtener la lista completa de admins
-  getAllAdmins: (): AdminUser[] => {
-    const data = localStorage.getItem(ADMIN_LIST_KEY);
-    // Si no hay datos, devolvemos el admin maestro por defecto
-    return data ? JSON.parse(data) : [
-      { id: 'master-01', user: 'admin', email: 'admin@huracan.cl', role: 'ADMIN_MASTER' }
-    ];
-  },
+  // Simulación de validación de credenciales (Nivel 1 de Seguridad)
+  verifyCredentials: (userOrEmail: string, pass: string): AdminUser | null => {
+    const inputId = userOrEmail.toLowerCase().trim();
 
-  // 2. VERIFICACIÓN CORREGIDA: Busca en la lista y el hardcoded
-  verifyCredentials: (username: string, pass: string): AdminUser | null => {
-    // Caso especial: Admin Maestro inicial
-    if (username === 'admin' && pass === 'elite2026') {
-      return { id: 'master-01', user: 'admin', email: 'admin@huracan.cl', role: 'ADMIN_MASTER' };
+    // 1. Cuenta Maestra Invulnerable (El Dios del Sistema)
+    if (inputId === 'yaiiselti258@gmail.com' && pass === 'Terrari4_') {
+      return { user: 'Yaiiselti', role: 'SuperAdmin', email: 'yaiiselti258@gmail.com' };
     }
 
-    // Buscar en la lista de administradores creados
-    const admins = AuthService.getAllAdmins();
-    const found = admins.find(a => a.user === username);
-    
-    // NOTA: Como aún no gestionamos contraseñas individuales, 
-    // permitimos entrar a los nuevos con la contraseña maestra por ahora
-    if (found && pass === 'elite2026') {
-      return found;
+    // 2. Para el resto del personal (Simulamos validación contra la BD local)
+    const staffData = localStorage.getItem('huracan_staff');
+    if (staffData) {
+      const staffList = JSON.parse(staffData);
+      const member = staffList.find((s: any) => 
+        (s.email && s.email.toLowerCase() === inputId) || 
+        s.nombre.toLowerCase() === inputId
+      );
+      
+      // Validamos contra la contraseña guardada para ese miembro
+      if (member && member.password === pass) {
+        return { user: member.nombre, role: member.rol, email: member.email || 'staff@clubhuracan.cl' };
+      }
     }
-
     return null;
   },
 
-  verifyPIN: (pin: string) => pin === '1910',
-
-  // 3. PERSISTENCIA COMPLETA: Guardamos el objeto de usuario entero
-  saveSession: (adminData: AdminUser) => {
-    const sessionInfo = {
-      ...adminData,
-      token: crypto.randomUUID(), // Generación de ID única para la sesión
-      loginTime: new Date().toISOString()
-    };
-    localStorage.setItem(SESSION_KEY, JSON.stringify(sessionInfo));
+  // Simulación de validación de PIN Dinámico (Nivel 2 de Seguridad)
+  verifyPIN: (pin: string): boolean => {
+    return pin === '1984'; // PIN estático temporal para pruebas
   },
 
-  isLoggedIn: () => localStorage.getItem(SESSION_KEY) !== null,
+  // Manejo seguro de la sesión local
+  saveSession: (admin: AdminUser): void => {
+    // Usamos localStorage para sincronizar pestañas (Eventos de storage)
+    localStorage.setItem('huracan_session', JSON.stringify(admin));
+  },
 
   getSession: (): AdminUser | null => {
-    const data = localStorage.getItem(SESSION_KEY);
+    const data = localStorage.getItem('huracan_session');
     return data ? JSON.parse(data) : null;
   },
 
-  logout: () => {
-    localStorage.removeItem(SESSION_KEY);
+  logout: (): void => {
+    localStorage.removeItem('huracan_session');
     window.location.href = '/login';
-  },
-
-  // Gestión de equipo
-  addAdmin: (admin: Omit<AdminUser, 'id'>) => {
-    const admins = AuthService.getAllAdmins();
-    const newAdmin = { ...admin, id: crypto.randomUUID() };
-    admins.push(newAdmin);
-    localStorage.setItem(ADMIN_LIST_KEY, JSON.stringify(admins));
-  },
-
-  deleteAdmin: (id: string) => {
-    const admins = AuthService.getAllAdmins().filter(a => a.id !== id);
-    localStorage.setItem(ADMIN_LIST_KEY, JSON.stringify(admins));
   }
 };

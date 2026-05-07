@@ -240,13 +240,48 @@
     font-size: 0.95rem;
 }
 
+/* SELECTORES DE MÉTODOS DE PAGO NUEVOS */
+.payment-methods-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.payment-card-option {
+  background: white;
+  border: 2px solid #edf2f7;
+  border-radius: 20px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  color: #64748b;
+  font-weight: 800;
+  font-size: 0.9rem;
+}
+.payment-card-option:hover {
+  border-color: #cbd5e1;
+  background: #f8fafc;
+}
+.payment-card-option.active {
+  background: #eff6ff;
+  border-color: var(--azul-club);
+  color: var(--azul-club);
+}
+.payment-card-option svg {
+  margin-bottom: 5px;
+}
+
 /* AVISO DE PAGO PROFESIONAL */
 .payment-box-elite {
-    background: #f0f9ff;
-    border: 2px dashed #bae6fd;
     border-radius: 25px;
     padding: 25px;
     transition: 0.3s;
+    border: 2px dashed;
 }
 
 .payment-header {
@@ -270,6 +305,24 @@
     font-weight: 500;
 }
 
+/* Variantes dinámicas según el pago seleccionado */
+.payment-box-elite.webpay {
+    background: #f0f9ff;
+    border-color: #bae6fd;
+}
+.payment-box-elite.transferencia {
+    background: #f0fdf4;
+    border-color: #bbf7d0;
+}
+.payment-box-elite.transferencia .payment-header { color: #166534; }
+.payment-box-elite.transferencia p { color: #14532d; }
+.payment-box-elite.efectivo {
+    background: #fefce8;
+    border-color: #fde68a;
+}
+.payment-box-elite.efectivo .payment-header { color: #92400e; }
+.payment-box-elite.efectivo p { color: #78350f; }
+
 /* INPUTS ELITE */
 .input-elite {
     width: 100%;
@@ -280,6 +333,46 @@
     transition: 0.3s;
 }
 
+/* REGLAS DE ORO DEL CLUB (STEP 3) */
+.rules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin: 30px 0;
+}
+
+.rule-card {
+  background: #f8fafc;
+  padding: 25px;
+  border-radius: 20px;
+  border: 1px solid #edf2f7;
+  text-align: center;
+  transition: 0.3s;
+}
+.rule-card:hover {
+  box-shadow: 0 10px 25px rgba(0, 45, 87, 0.05);
+  transform: translateY(-3px);
+  border-color: var(--azul-club);
+}
+.rule-icon {
+  width: 50px;
+  height: 50px;
+  background: #eff6ff;
+  color: var(--azul-club);
+  border-radius: 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+.rule-card h4 { font-weight: 800; font-size: 1rem; color: var(--azul-club); margin-bottom: 10px; }
+.rule-card p { font-size: 0.85rem; color: #64748b; margin: 0; line-height: 1.5; }
+
+@media (max-width: 768px) {
+  .payment-methods-grid { grid-template-columns: 1fr; }
+  .payment-card-option { flex-direction: row; justify-content: center; }
+  .payment-card-option svg { margin-bottom: 0; }
+}
 .input-elite.error {
     border-color: #ef4444;
     background: #fff5f5;
@@ -522,4 +615,3 @@
     font-size: 1rem;
     letter-spacing: 0.5px;
 }
-

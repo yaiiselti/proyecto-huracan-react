@@ -29,9 +29,9 @@ const Club = () => {
             <main className="container club-content">
                 {/* SECCIÓN HISTORIA Y MISIÓN */}
                 <div className="club-grid">
-                    <div className="club-card-elite">
+                    <div className="club-card-elite anim-float-huracan" style={{animationDelay: '0s'}}>
                         <div className="card-header">
-                            <HistoryIcon />
+                            <div className="anim-spin-hover"><HistoryIcon /></div>
                             <h2>Nuestra Historia</h2>
                         </div>
                         <p>
@@ -42,9 +42,9 @@ const Club = () => {
                         </p>
                     </div>
 
-                    <div className="club-card-elite">
+                    <div className="club-card-elite anim-float-huracan" style={{animationDelay: '1s'}}>
                         <div className="card-header">
-                            <TargetIcon />
+                            <div className="anim-spin-hover"><TargetIcon /></div>
                             <h2>¿A qué nos dedicamos?</h2>
                         </div>
                         <p>
